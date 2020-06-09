@@ -8,8 +8,8 @@ function TeamComponent (props)
                 <li>team name: { props.data.team_name } </li>
                 <li>team rank: { props.data.team_rank }</li>
             </ul>
-            <button className="btn btn-primary p-2 m-2" >Edit</button>
-            <button className="btn btn-primary p-2 m-2" >Delete</button>
+            <button className="btn btn-primary btn-sm p-2 mb-2"   id="my-btn">Edit</button>
+            <button className="btn btn-dark btn-sm p-2 mb-2 ml-1" id="my-btn">Delete</button>
         </div>
     );
 }

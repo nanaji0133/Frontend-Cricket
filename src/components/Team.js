@@ -9,12 +9,18 @@ class Team extends Component
         this.state = {
             teamsData: [],
             dataLoaded: false,
-            teamName: "",
-            teamRank: "",
+            team_name: "",
+            team_rank: "",
         };
+        this.fetchTeams = this.fetchTeams.bind(this);
     }
 
     componentDidMount ()
+    {
+        this.fetchTeams();
+    }
+
+    fetchTeams ()
     {
         fetch("http://127.0.0.1:8000/team/")
             .then(res => res.json())
@@ -29,14 +35,32 @@ class Team extends Component
     {
         const { name, value } = event.target;
         this.setState({ [name]: value });
-        console.log(value);
     };
 
     handleSubmit = (event) =>
     {
         event.preventDefault();
-        console.log("submitted");
+        let team_name = this.state.team_name;
+        let team_rank = this.state.team_rank;
+        fetch("http://127.0.0.1:8000/team/", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({ team_name: team_name, team_rank: team_rank })
+        })
+            .then(res =>
+            {
+                console.log(res);
+                this.fetchTeams();
+                this.setState({ team_name: "" });
+                this.setState({ team_rank: "" });
+            })
+            .catch(error => console.log(error));
+
     };
+
+
     render ()
     {
         const teamDataDisplay = this.state.dataLoaded && this.state.teamsData.map(data =>
@@ -46,20 +70,20 @@ class Team extends Component
 
             <div id="team">
                 <div className="container mb-10">
-                    { teamDataDisplay }
+                    { !this.state.dataLoaded ? <h1>Loading...</h1> : teamDataDisplay }
                 </div>
                 <form id="my-form" onSubmit={ this.handleSubmit }>
                     <div className="form-group m-1">
                         <input type="text" className="form-control col-4"
                             id="formGroupExampleInput" placeholder="team name"
-                            name="teamName" value={ this.state.teamName }
+                            name="team_name" value={ this.state.team_name }
                             onChange={ this.handleChange }
                         />
                     </div>
                     <div className="form-group m-1">
                         <input type="number" className="form-control col-4"
                             id="formGroupExampleInput" placeholder="team rank"
-                            name="teamRank" value={ this.state.teamRank }
+                            name="team_rank" value={ this.state.team_rank }
                             onChange={ this.handleChange }
                         />
                     </div>

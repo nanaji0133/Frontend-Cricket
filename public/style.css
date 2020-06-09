@@ -13,3 +13,10 @@ body {
 #my-form {
     margin: 20px 0;
 }
+
+#my-btn{
+    height: 40px;
+    width: 60px;
+    text-align: center;
+    vertical-align: middle;
+}
