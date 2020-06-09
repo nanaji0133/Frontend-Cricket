@@ -92,10 +92,13 @@ class Team extends Component
         })
             .then(res =>
             {
-                // console.log(res);
+                this.setState({
+                    teamFields: {
+                        team_name: "",
+                        team_rank: "",
+                    }
+                });
                 this.fetchTeams();
-                this.setState({ team_name: "" });
-                this.setState({ team_rank: "" });
             })
             .catch(error => console.log(error));
 
@@ -113,18 +116,37 @@ class Team extends Component
         });
     };
 
+    deleteTeam = (event) =>
+    {
+
+        let url = `http://127.0.0.1:8000/team/${event.id}/`;
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(res =>
+            {
+                this.fetchTeams();
+            })
+            .catch(error => console.log(error));
+    };
+
 
     render ()
     {
         const teamDataDisplay = this.state.dataLoaded && this.state.teamsData.map(data =>
             <TeamComponent key={ data.id } data={ data }
-                editTeam={ () => this.editTeam(data) } />
+                editTeam={ () => this.editTeam(data) }
+                deleteTeam={ () => this.deleteTeam(data) } />
         );
+
         return (
 
             <div id="team">
                 <div className="container mb-10">
-                    { !this.state.dataLoaded ? <h1>Loading...</h1> : teamDataDisplay }
+                    { teamDataDisplay }
                 </div>
                 <form id="my-form" onSubmit={ this.handleSubmit }>
                     <div className="form-group m-1">
