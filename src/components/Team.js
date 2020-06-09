@@ -9,18 +9,39 @@ class Team extends Component
         this.state = {
             teamsData: [],
             dataLoaded: false,
-            team_name: "",
-            team_rank: "",
+            teamFields: {
+                team_name: "",
+                team_rank: "",
+            }
         };
-        this.fetchTeams = this.fetchTeams.bind(this);
     }
+
+    getCookie = (name) => 
+    {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '')
+        {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++)
+            {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '='))
+                {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    };
 
     componentDidMount ()
     {
         this.fetchTeams();
     }
 
-    fetchTeams ()
+    fetchTeams = () =>
     {
         fetch("http://127.0.0.1:8000/team/")
             .then(res => res.json())
@@ -29,23 +50,30 @@ class Team extends Component
                 this.setState({ teamsData: data });
                 this.setState({ dataLoaded: true });
             });
-    }
+    };
 
     handleChange = (event) =>
     {
         const { name, value } = event.target;
-        this.setState({ [name]: value });
+        this.setState({
+            teamFields: {
+                ...this.state.teamFields,
+                [name]: value
+            }
+        });
     };
 
     handleSubmit = (event) =>
     {
         event.preventDefault();
-        let team_name = this.state.team_name;
-        let team_rank = this.state.team_rank;
+        let csrftoken = this.getCookie("csrftoken");
+        let team_name = this.state.teamFields.team_name;
+        let team_rank = this.state.teamFields.team_rank;
         fetch("http://127.0.0.1:8000/team/", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
+                "X-CSRFToken": csrftoken
             },
             body: JSON.stringify({ team_name: team_name, team_rank: team_rank })
         })
@@ -60,11 +88,17 @@ class Team extends Component
 
     };
 
+    handleEdit = (event) =>
+    {
+        this.setState({ teamFields: event });
+    };
+
 
     render ()
     {
         const teamDataDisplay = this.state.dataLoaded && this.state.teamsData.map(data =>
-            <TeamComponent key={ data.id } data={ data } />
+            <TeamComponent key={ data.id } data={ data }
+                handleEdit={ () => this.handleEdit(data) } />
         );
         return (
 
@@ -76,14 +110,15 @@ class Team extends Component
                     <div className="form-group m-1">
                         <input type="text" className="form-control col-4"
                             id="formGroupExampleInput" placeholder="team name"
-                            name="team_name" value={ this.state.team_name }
+                            name="team_name"
+                            value={ this.state.teamFields.team_name }
                             onChange={ this.handleChange }
                         />
                     </div>
                     <div className="form-group m-1">
                         <input type="number" className="form-control col-4"
                             id="formGroupExampleInput" placeholder="team rank"
-                            name="team_rank" value={ this.state.team_rank }
+                            name="team_rank" value={ this.state.teamFields.team_rank }
                             onChange={ this.handleChange }
                         />
                     </div>
