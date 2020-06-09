@@ -10,9 +10,11 @@ class Team extends Component
             teamsData: [],
             dataLoaded: false,
             teamFields: {
+                id: "",
                 team_name: "",
                 team_rank: "",
-            }
+            },
+            editing: false
         };
     }
 
@@ -69,8 +71,19 @@ class Team extends Component
         let csrftoken = this.getCookie("csrftoken");
         let team_name = this.state.teamFields.team_name;
         let team_rank = this.state.teamFields.team_rank;
-        fetch("http://127.0.0.1:8000/team/", {
-            method: "POST",
+
+        let url = "http://127.0.0.1:8000/team/";
+        let metd = "POST";
+
+        if (this.state.editing)
+        {
+            url = `http://127.0.0.1:8000/team/${this.state.teamFields.id}/`;
+            metd = "PUT";
+            this.setState({ editing: false });
+        }
+
+        fetch(url, {
+            method: metd,
             headers: {
                 "Content-type": "application/json",
                 "X-CSRFToken": csrftoken
@@ -79,7 +92,7 @@ class Team extends Component
         })
             .then(res =>
             {
-                console.log(res);
+                // console.log(res);
                 this.fetchTeams();
                 this.setState({ team_name: "" });
                 this.setState({ team_rank: "" });
@@ -88,9 +101,16 @@ class Team extends Component
 
     };
 
-    handleEdit = (event) =>
+    editTeam = (event) =>
     {
-        this.setState({ teamFields: event });
+        this.setState({
+            teamFields: {
+                id: event.id,
+                team_name: event.team_name,
+                team_rank: event.team_rank
+            },
+            editing: true
+        });
     };
 
 
@@ -98,7 +118,7 @@ class Team extends Component
     {
         const teamDataDisplay = this.state.dataLoaded && this.state.teamsData.map(data =>
             <TeamComponent key={ data.id } data={ data }
-                handleEdit={ () => this.handleEdit(data) } />
+                editTeam={ () => this.editTeam(data) } />
         );
         return (
 
