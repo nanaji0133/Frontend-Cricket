@@ -10,6 +10,7 @@ class Team extends Component
         this.state = {
             teamsData: [],
             dataLoaded: false,
+            getSpeTeam: false,
             teamFields: {
                 id: "",
                 team_name: "",
@@ -50,6 +51,7 @@ class Team extends Component
             .then(res => res.json())
             .then(data =>
             {
+                console.log(data);
                 this.setState({ teamsData: data });
                 this.setState({ dataLoaded: true });
             });
@@ -134,20 +136,50 @@ class Team extends Component
             .catch(error => console.log(error));
     };
 
+    getTeam = (event) =>
+    {
+        fetch(`http://127.0.0.1:8000/team/${event.id}/`)
+            .then(res => res.json())
+            .then(data =>
+            {
+                // console.log(data);
+                this.setState({
+                    dataLoaded: true,
+                    getSpeTeam: true,
+                    teamsData: data,
+                    teamFields: {
+                        id: event.id
+                    }
+                });
+            });
+    };
+
 
     render ()
     {
-        const teamDataDisplay = this.state.dataLoaded && this.state.teamsData.map(data =>
-            <TeamComponent key={ data.id } data={ data }
-                editTeam={ () => this.editTeam(data) }
-                deleteTeam={ () => this.deleteTeam(data) } />
-        );
+        const teamDataDisplay = this.state.dataLoaded && !this.state.getSpeTeam &&
+            this.state.teamsData.map(data =>
+                <TeamComponent key={ data.id } data={ data }
+                    editTeam={ () => this.editTeam(data) }
+                    deleteTeam={ () => this.deleteTeam(data) }
+                    getTeam={ () => this.getTeam(data) }
+                />
+            );
 
         return (
 
             <div id="team">
-                <div className="container mb-10">
-                    { teamDataDisplay }
+
+                <div className="container mb-10"> 
+                    { this.state.getSpeTeam ?
+                        <TeamComponent key={ this.state.teamFields.id }
+                            data={ this.state.teamsData }
+                            editTeam={ () => this.editTeam(this.state.teamsData) }
+                            deleteTeam={ () => this.deleteTeam(this.state.teamsData) }
+                            getTeam={ () => this.getTeam(this.state.teamsData) }
+                        /> :
+                        !this.state.dataLoaded ? <h1>Loading...</h1> :
+                            teamDataDisplay }
                 </div>
 
                 <TeamFormComponent
