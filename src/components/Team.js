@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TeamComponent from "./TeamComponent";
+import TeamFormComponent from "./TeamFormComponent";
 
 class Team extends Component
 {
@@ -148,24 +149,13 @@ class Team extends Component
                 <div className="container mb-10">
                     { teamDataDisplay }
                 </div>
-                <form id="my-form" onSubmit={ this.handleSubmit }>
-                    <div className="form-group m-1">
-                        <input type="text" className="form-control col-4"
-                            id="formGroupExampleInput" placeholder="team name"
-                            name="team_name"
-                            value={ this.state.teamFields.team_name }
-                            onChange={ this.handleChange }
-                        />
-                    </div>
-                    <div className="form-group m-1">
-                        <input type="number" className="form-control col-4"
-                            id="formGroupExampleInput" placeholder="team rank"
-                            name="team_rank" value={ this.state.teamFields.team_rank }
-                            onChange={ this.handleChange }
-                        />
-                    </div>
-                    <button className="btn btn-primary m-1">Submit</button>
-                </form>
+
+                <TeamFormComponent
+                    handleChange={ this.handleChange }
+                    handleSubmit={ this.handleSubmit }
+                    { ...this.state }
+                />
+
 
             </div>
         );
