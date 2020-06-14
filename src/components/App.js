@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "../index.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import Team from "./Team";
+import TeamDetailView from "./TeamDetailView";
+import TeamListView from "./TeamListView";
 
 class App extends Component
 {
@@ -15,8 +16,8 @@ class App extends Component
                     <Header />
 
                     <Switch>
-                        <Route path="/" exact />
-                        <Route path="/teams" component={ Team } />
+                        <Route path="/" exact component={ TeamListView } />
+                        <Route path="/:id" component={ TeamDetailView } />
                     </Switch>
 
                     <Footer />
