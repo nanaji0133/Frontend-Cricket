@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "../index.css";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -9,11 +10,20 @@ class App extends Component
     render ()
     {
         return (
-            <div className="container">
-                <Header />
-                <Team />
-                <Footer />
-            </div>
+            <Router>
+                <div className="container">
+                    <Header />
+
+                    <Switch>
+                        <Route path="/" exact />
+                        <Route path="/teams" component={ Team } />
+                    </Switch>
+
+                    <Footer />
+
+                </div >
+            </Router>
+
         );
     }
 }
