@@ -15,14 +15,7 @@ function TeamComponent (props)
                 { !players.length == 0 ? players : "no players" }
             </ul>
 
-            <button className="btn btn-primary btn-sm p-2 mb-2" id="my-btn"
-                onClick={ props.editTeam } >
-                Edit
-                </button>
-            <button className="btn btn-dark btn-sm p-2 mb-2 ml-1" id="my-btn"
-                onClick={ props.deleteTeam } >
-                Delete
-             </button>
+            
         </div>
     );
 }
