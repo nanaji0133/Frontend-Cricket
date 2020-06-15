@@ -4,6 +4,13 @@ body {
 
 #my-nav {
     margin-bottom: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-self: center;
+}
+
+#my-nav-list{
+    list-style: none;
 }
 
 #team {
