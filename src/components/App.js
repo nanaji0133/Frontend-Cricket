@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../index.css";
+import "../style.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import Team from "./Team";
+import TeamCreate from "./TeamCreate";
+import TeamDetail from "./TeamDetail";
+import TeamList from "./TeamList";
 
 class App extends Component
 {
@@ -10,9 +14,16 @@ class App extends Component
     {
         return (
             <div className="container">
-                <Header />
-                <Team />
-                <Footer />
+                <Router >
+                    <Header />
+                    <Switch>
+                        <Route exact path="/teams" component={ TeamList } />
+                        <Route path="/teams/create" component={ TeamCreate } />
+                        <Route path="/teams/:id" component={ TeamDetail } />
+                    </Switch>
+                    <Footer />
+                </Router>
+
             </div>
         );
     }
