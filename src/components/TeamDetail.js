@@ -11,7 +11,7 @@ class TeamDetail extends Component
         this.state = {
             teamData: {},
             dataLoaded: false,
-            editing: false,
+            existing: true,
             teamFields: {
                 id: props.match.params.id,
                 team_name: "",
@@ -49,10 +49,11 @@ class TeamDetail extends Component
     fetchTeam = () =>
     {
         fetch(`http://127.0.0.1:8000/team/${this.state.teamFields.id}/`)
-            .then(res => res.json())
+            .then(res => console.log(res.json()))
             .then(data =>
             {
                 console.log(data);
+                !data && this.setState({ existing: false });
                 this.setState({ teamData: data, dataLoaded: true });
             })
             .catch(error => console.log(error));
@@ -135,12 +136,14 @@ class TeamDetail extends Component
 
                 <div className="container mb-10">
                     {
-                        this.state.dataLoaded &&
-                        <TeamComponent key={ this.state.teamFields.id }
-                            data={ this.state.teamData }
-                            editTeam={ () => this.editTeam(this.state.teamsData) }
-                            deleteTeam={ () => this.deleteTeam(this.state.teamsData) }
-                        />
+                        !this.state.existing ? "not existing" :
+                            this.state.dataLoaded &&
+                            <TeamComponent key={ this.state.teamFields.id }
+                                data={ this.state.teamData }
+                                existing={ this.state.existing }
+                                editTeam={ () => this.editTeam(this.state.teamsData) }
+                                deleteTeam={ () => this.deleteTeam(this.state.teamsData) }
+                            />
                     }
 
                 </div>

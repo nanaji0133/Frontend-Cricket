@@ -16,7 +16,7 @@ function TeamComponent (props)
                 { !players.length == 0 ? players : "no players" }
             </ul>
 
-            
+
         </div>
     );
 }
