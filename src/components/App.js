@@ -4,9 +4,9 @@ import "../index.css";
 import "../style.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import TeamCreate from "./TeamCreate";
-import TeamDetail from "./TeamDetail";
-import TeamList from "./TeamList";
+import TeamCreate from "./Team/TeamCreate";
+import TeamDetail from "./Team/TeamDetail";
+import TeamList from "./Team/TeamList";
 
 class App extends Component
 {

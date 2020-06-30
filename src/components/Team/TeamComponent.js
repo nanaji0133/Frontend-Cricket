@@ -3,7 +3,7 @@ import React from "react";
 function TeamComponent (props)
 {
 
-    let players = props.data.players.map((data) =>
+    let players =  props.data.players.map((data) =>
         <li key={ data.toString() } > { data }</li>);
 
     return (

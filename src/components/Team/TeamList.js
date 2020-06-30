@@ -53,7 +53,7 @@ class TeamList extends Component
 
     render ()
     {
-        const teamDataDisplay = this.state.dataLoaded && !this.state.getSpeTeam &&
+        const teamDataDisplay = this.state.dataLoaded &&
             this.state.teamsData.map(data =>
                 <TeamComponent key={ data.id } data={ data } />
             );
