@@ -56,10 +56,9 @@ class TeamCreate extends Component
         let team_rank = this.state.teamFields.team_rank;
 
         let url = "http://127.0.0.1:8000/team/";
-        let metd = "POST";
 
         fetch(url, {
-            method: metd,
+            method: "POST",
             headers: {
                 "Content-type": "application/json",
                 "X-CSRFToken": csrftoken
@@ -80,6 +79,36 @@ class TeamCreate extends Component
 
     };
 
+    // handleSubmit = (event) =>
+    // {
+    //     event.preventDefault();
+    //     let csrftoken = this.getCookie("csrftoken");
+    //     let team_name = this.state.teamFields.team_name;
+    //     let team_rank = this.state.teamFields.team_rank;
+
+
+    //     axios.post("http://127.0.0.1:8000/team/",
+    //         { team_name: team_name, team_rank: team_rank } ,
+    //         {
+    //             headers: {
+    //                 "Content-type": "application/json",
+    //                 "X-CSRFToken": csrftoken
+    //             },
+
+    //         })
+    //         .then(res =>
+    //         {
+    //             this.setState({
+    //                 created: true,
+    //                 teamFields: {
+    //                     team_name: "",
+    //                     team_rank: "",
+    //                 }
+    //             });
+    //         })
+    //         .catch(error => console.log(error));
+
+    // };
     render ()
     {
         return (
@@ -90,7 +119,7 @@ class TeamCreate extends Component
                     handleSubmit={ this.handleSubmit }
                     { ...this.state }
                 />
-                <div>{this.state.created && <h4>Team has been created</h4> }</div>
+                <div>{ this.state.created && <h4>Team has been created</h4> }</div>
             </div>
         );
     }

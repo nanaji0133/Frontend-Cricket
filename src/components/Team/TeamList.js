@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import TeamComponent from "./TeamComponent";
 
 class TeamList extends Component
@@ -47,7 +48,7 @@ class TeamList extends Component
                 this.setState({ teamsData: data });
                 this.setState({ dataLoaded: true });
             })
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
     };
 
 
@@ -55,7 +56,10 @@ class TeamList extends Component
     {
         const teamDataDisplay = this.state.dataLoaded &&
             this.state.teamsData.map(data =>
-                <TeamComponent key={ data.id } data={ data } />
+                <Link to={`teams/${data.id}`} id="link">
+                    <TeamComponent key={ data.id } data={ data } />
+                </Link>
+
             );
 
         return (
