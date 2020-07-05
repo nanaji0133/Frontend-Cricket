@@ -37,4 +37,9 @@ body {
     vertical-align: middle;
 }
 
+#link {
+    text-decoration: inherit;
+    color: inherit;
+}
+  
 
