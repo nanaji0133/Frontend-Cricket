@@ -56,8 +56,8 @@ class TeamList extends Component
     {
         const teamDataDisplay = this.state.dataLoaded &&
             this.state.teamsData.map(data =>
-                <Link to={`teams/${data.id}`} id="link">
-                    <TeamComponent key={ data.id } data={ data } />
+                <Link to={`teams/${data.id}`} id="link" key={ data.id }>
+                    <TeamComponent  data={ data } />
                 </Link>
 
             );

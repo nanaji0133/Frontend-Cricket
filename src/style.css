@@ -2,6 +2,19 @@ body {
     margin: 0;
 }
 
+#my-footer {
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+#team, #players {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
 #my-nav {
     margin-bottom: 40px;
     display: flex;
@@ -11,14 +24,6 @@ body {
 
 #my-nav-list{
     list-style: none;
-}
-
-#team {
-    margin-top: 100px;
-    margin-bottom: 50px;
-    /* margin-left: 100px;
-    margin-right: 100px;
-    border: 1px solid black; */
 }
 
 #my-form {
@@ -32,10 +37,4 @@ body {
     vertical-align: middle;
 }
 
-#my-footer {
-    background-color: grey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-}
+
