@@ -2,10 +2,7 @@ import React, { Component } from "react";
 
 class PlayerForm extends Component
 {
-    constructor(props)
-    {
-        super(props);
-    }
+    
     render ()
     {
         const teamOptions = this.props.teamList.map((data, index) => <option key={ data.id } value={ data.id } >{ data.team_name }</option>);

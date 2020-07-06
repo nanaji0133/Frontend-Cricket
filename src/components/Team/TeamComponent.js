@@ -13,7 +13,7 @@ function TeamComponent (props)
             <h4>rank: { props.data.team_rank }</h4>
             <h5>Players </h5>
             <ul>
-                { !players.length == 0 ? players : "no players" }
+                { Number(!players.length) === 0 ? players : "no players" }
             </ul>
 
 

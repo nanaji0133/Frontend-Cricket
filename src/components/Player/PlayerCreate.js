@@ -33,13 +33,27 @@ class PlayerCreate extends Component
         this.setState({
             [name]: value
         });
-        console.log(this.state.team);
     }
 
     handleSubmit (event)
     {
         event.preventDefault();
-        console.log("submitted");
+        const data = {
+            country: this.state.country,
+            style: this.state.style,
+            team: this.state.team
+        };
+        axios.post("http://127.0.0.1:8000/team/players/", data, {
+            headers: {
+                "Content-type": "application/json"
+            },
+            auth: {
+                username: "sanka",
+                password: "nanaji@5357"
+            }
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
 
     render ()
