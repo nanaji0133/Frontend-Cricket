@@ -4,6 +4,7 @@ import "../index.css";
 import "../style.css";
 import Footer from "./Footer";
 import Header from "./Header";
+import PlayerCreate from "./Player/PlayerCreate";
 import PlayerDetail from "./Player/PlayerDetail";
 import PlayersList from "./Player/PlayersList";
 import TeamCreate from "./Team/TeamCreate";
@@ -23,6 +24,7 @@ class App extends Component
                         <Route path="/teams/create" component={ TeamCreate } />
                         <Route path="/teams/:id" component={ TeamDetail } />
                         <Route exact path="/players" component={ PlayersList } />
+                        <Route path="/players/create" component={ PlayerCreate } />
                         <Route path="/players/:id" component={ PlayerDetail } />
                     </Switch>
                     <Footer />
