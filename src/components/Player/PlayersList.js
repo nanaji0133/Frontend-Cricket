@@ -14,7 +14,13 @@ class PlayersList extends Component
 
     componentDidMount ()
     {
-        axios.get("http://127.0.0.1:8000/team/players/")
+        axios.get("http://127.0.0.1:8000/team/players/", {
+            auth: {
+                username: "nanaji",
+                password: "nanaji@5357"
+            },
+            
+        })
             .then(res =>
             {
                 this.setState({
@@ -22,6 +28,7 @@ class PlayersList extends Component
                     isLoaded: true
                 });
                 console.log(this.state.players);
+                console.log(res)
             })
             .catch(err => console.log(err));
     }

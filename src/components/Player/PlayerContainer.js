@@ -16,7 +16,7 @@ class PlayerContainer extends Component
 
     componentDidMount ()
     {
-        axios.all([axios.get(`http://127.0.0.1:8000/team/${this.props.team}`), axios.get(`http://127.0.0.1:8000/team/users/${this.props.user}`)])
+        Promise.all([axios.get(`http://127.0.0.1:8000/team/${this.props.team}`), axios.get(`http://127.0.0.1:8000/team/users/${this.props.user}`)])
             .then(axios.spread((res1, res2) =>
             {
                 this.setState({
