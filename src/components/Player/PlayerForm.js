@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class PlayerForm extends Component
 {
-    
+
     render ()
     {
         const teamOptions = this.props.teamList.map((data, index) => <option key={ data.id } value={ data.id } >{ data.team_name }</option>);
@@ -10,6 +10,7 @@ class PlayerForm extends Component
         return (
             <div>
                 <form id="players-form" onSubmit={ this.props.handleSubmit }>
+                   
                     <div className="form-group">
                         <label htmlFor="exampleFormControlInput1">Country: </label>
                         <input type="text" className="form-control" id="exampleFormControlInput1" value={ this.props.country } name="country" onChange={ this.props.handleChange } />
