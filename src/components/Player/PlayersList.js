@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import PlayerContainer from "./PlayerContainer";
-axios.defaults.headers.common["Authorization"] = "Basic bWFsaW5nYTpuYW5hamlANTM1Nw=="
+
 class PlayersList extends Component
 {
     constructor()
@@ -15,14 +15,15 @@ class PlayersList extends Component
 
     componentDidMount ()
     {
-        axios.get("http://127.0.0.1:8000/team/players/"
-        // , {
-        //     auth: {
-        //         username: "malinga",
-        //         password: "nanaji@5357"
-        //     }
-        // }
-        )
+        axios.get("http://127.0.0.1:8000/team/players/",{
+            // headers: {
+            //     Authorization: "Token 31cb63540921b8f7027fcb2dfd0cd95eb05cc405"
+            // }
+            // auth: {
+            //     username: "sanka",
+            //     password: "nanaji@5357"
+            // }
+        })
             .then(res =>
             {
                 this.setState({
@@ -30,9 +31,24 @@ class PlayersList extends Component
                     isLoaded: true
                 });
                 // console.log(this.state.players);
-                console.log(res)
+                console.log(res);
             })
-            .catch(err => console.log(err));
+            .catch(err =>
+            {
+                if (err.response)
+                {
+                    console.log(err.response.data);
+                    console.log(err.response.status);
+                    console.log(err.response.headers);
+                }
+                if (err.request)
+                {
+                    console.log(err.request);
+                } else
+                {
+                    console.log(err.message);
+                }
+            });
     }
 
     render ()

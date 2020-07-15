@@ -10,7 +10,7 @@ body {
     height: 40px;
 }
 
-#team, #players {
+#team, #players, #auth {
     margin-top: 100px;
     margin-bottom: 50px;
 }
