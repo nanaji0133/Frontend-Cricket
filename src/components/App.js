@@ -29,7 +29,7 @@ const App = () =>
 
     return (
         <div className="container">
-            <AuthContext.Provider value={ { authTokens, setAuthTokens: setTokens } }>
+            <AuthContext.Provider value={ { authTokens,  setTokens } }>
                 <Router >
                     <Header />
                     <Switch>
@@ -38,7 +38,7 @@ const App = () =>
                         <Route path="/teams/:id" component={ TeamDetail } />
                         <Route exact path="/players" component={ PlayersList } />
                         <PrivateRouter path="/players/create" component={ PlayerCreate } />
-                        <Route path="/players/:id" component={ PlayerDetail } />
+                        <PrivateRouter path="/players/:id" component={ PlayerDetail } />
                         <Route path="/signin" component={ Singin } />
                         <Route path="/login" component={ Login } />
                         <PrivateRouter path="/admin" component={ Admin } />

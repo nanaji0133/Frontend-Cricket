@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { AuthContext } from "../../AuthContext/authContex";
 import PlayerForm from "./PlayerForm";
 
 class PlayerCreate extends Component
 {
+
+    static contextType = AuthContext;
     constructor()
     {
         super();
@@ -19,6 +22,7 @@ class PlayerCreate extends Component
 
     componentDidMount ()
     {
+
         axios.get("http://127.0.0.1:8000/team/")
             .then(res =>
             {
@@ -43,17 +47,33 @@ class PlayerCreate extends Component
             style: this.state.style,
             team: this.state.team,
         };
+        const { authTokens } = this.context;
+        console.log(authTokens);
         axios.post("http://127.0.0.1:8000/team/players/", data, {
             headers: {
+                "Authorization": `Token ${authTokens.key}`,
                 "Content-type": "application/json"
             },
-            // auth: {
-            //     username: "sanka",
-            //     password: "nanaji@5357"
-            // }
         })
             .then(res => console.log(res))
-            .catch(err => console.log(err));
+            .catch(function (error)
+            {
+                if (error.response)
+                {
+
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request)
+                {
+
+                    console.log(error.request);
+                } else
+                {
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+            });
     }
 
     render ()

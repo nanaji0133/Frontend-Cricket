@@ -3,11 +3,11 @@ import { useAuth } from '../../AuthContext/authContex';
 
 const Admin = () =>
 {
-    const { setAuthTokens } = useAuth();
+    const { setTokens } = useAuth();
 
    function logout()
     {
-        setAuthTokens();
+        setTokens(null);
     };
     return (
         <div id="auth">

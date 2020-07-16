@@ -8,7 +8,7 @@ const Login = () =>
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const { setAuthTokens } = useAuth();
+    const { setTokens } = useAuth();
 
     const postLogin = (e) =>
     {
@@ -16,7 +16,7 @@ const Login = () =>
         axios.post("http://127.0.0.1:8000/rest-auth/login/", { username, password })
             .then(res =>
             {
-                setAuthTokens(res.data);
+                setTokens(res.data);
                 setIsLoggedIn(true);
                 console.log(res, res.data);
             })
